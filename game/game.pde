@@ -4,6 +4,12 @@
  Date of last edit: August 9, 2020
  */
 
+//Variables used to make the mountains in the background
+float[] mountainElements = new float[72];
+float mountainY;
+float mountainXStart;
+float mountainXEnd;
+float mountainX;
 
 //Variable to control the activation of the start, game and ending
 boolean startScreen;
@@ -52,7 +58,24 @@ void setup() {
   startGame = false; //Presets the game to off
   endGame = false; //Presets the end screen to off
 
- 
+  //Sets the coordinates of the mountain
+  mountainXStart = random(-60, -30);
+  mountainX = random(75, 120);
+  mountainXEnd = mountainX+mountainXStart;
+  mountainY = random(230, 260);
+
+  //Adds random values for points in the mountain to an array which will be accessed later
+  for (int i=0; i<72; i+=4) {
+    mountainElements[i] = mountainXStart;
+    mountainElements[i+1] = mountainX/2+mountainXStart;
+    mountainElements[i+2] = mountainY;
+    mountainElements[i+3] = mountainXEnd;
+    mountainX = random(95, 120);
+    mountainXStart = random(mountainXEnd-60, mountainXEnd-30);
+    mountainXEnd = mountainX+mountainXStart;
+    mountainY = random(230, 260);
+  }
+
 
   //Sets the default scores
   currentScore = 0;
