@@ -63,7 +63,54 @@ void setup() {
 }
 
 void draw() {
-  
+    if (startScreen) {
+    rectMode(RADIUS);
+    //Highlights (by changing the colour) the option which the user is hovering over
+    if (mouseX<398 && mouseX>100 && mouseY<503 && mouseY>196) {
+      fill(49);
+    } else {
+      fill(0);
+    }
+    //Creates the left rectangle
+    stroke(255);
+    strokeWeight(5);
+    rect( width/2-225, height/2, 150, 100);
+
+
+    //Highlights (by changing the colour) the option which the user is hovering over
+    if (mouseX<852 && mouseX>552 && mouseY<500 && mouseY>196) {
+      fill(190);
+    } else {
+      fill(255);
+    }
+    //Creates the right rectangle
+    stroke(0);
+    rect( width/2+225, height/2, 150, 100);
+
+
+    if (mousePressed) {
+      //Starts game and turns mouse control off if user selects the left button
+      if (mouseX<398 && mouseX>100 && mouseY<503 && mouseY>196) { 
+        mouseControl = false;
+        startScreen = false;
+        startGame = true;
+      }
+      //Starts the game and turns mouse control on if the user selects the right button
+      else if (mouseX<852 && mouseX>552 && mouseY<500 && mouseY>196) {
+        mouseControl = true;
+        startScreen = false;
+        startGame = true;
+      }
+    }
+
+    //Display the text that state the two options for playing
+    textAlign(CENTER);
+    fill(0, 102, 153);
+    textSize(40);
+    text("Arrow Keys", width/2-225, height/2+7);
+    text("Mouse", width/2+225, height/2+7);
+  }
+
 
   //Runs the game if the boolean startGame is true
   if (startGame) {
