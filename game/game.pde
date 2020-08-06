@@ -4,6 +4,12 @@
  Date of last edit: August 9, 2020
  */
 
+//Variables used to make the mountains in the background
+float[] mountainElements = new float[72];
+float mountainY;
+float mountainXStart;
+float mountainXEnd;
+float mountainX;
 
 //Variables used to make the racing tracks on the side of the road
 float racingTrackY;
@@ -17,24 +23,25 @@ float roadLineY;
 float roadLineWidth;
 float roadLineHeight;
 
-//Variables used to make the mountains in the background
-float[] mountainElements = new float[72];
-float mountainY;
-float mountainXStart;
-float mountainXEnd;
-float mountainX;
+//Variable that changes where the X-axis of the car is
+float carDirection;
 
-//Variable to control the activation of the start, game and ending
-boolean startScreen;
-boolean startGame;
-boolean endGame;
+//Variable to judge if the user uses the mouse or the arrow keys to control the car
+boolean mouseControl;
 
-//Variables to inform the user of their scores
-int topScore;
-int currentScore;
-int lapNumber;
-int lapCounter;
-int speed;
+//Variable to randomly choose which obstacle will appear
+float obstacleChoice;
+
+//Variables for the rock obstacles
+float rockY;
+float rockSize;
+float rockX;
+float rockSide;
+
+//Variables for the cow obstacle
+float cowY;
+float cowSize;
+float cowX;
 
 //Variables used to make the first cloud
 float cloudX;
@@ -50,8 +57,39 @@ float cloud2Horizontal;
 float cloud2XChange;
 float cloud2YChange;
 
+//Variables for the sign that appears to show the number of laps
+float signX;
+float signY;
+float signWidth;
+float signHeight;
+float signTextSize;
+
+//Variable to decide if the sun is on or off
+boolean flashingSun;
+
+//Variable to decide if the flames are visible or not
+boolean showFlames;
+
+//Variable to control the activation of the start, game and ending
+boolean startScreen;
+boolean startGame;
+boolean endGame;
+
+//Variables to inform the user of their scores
+int topScore;
+int currentScore;
+int lapNumber;
+int lapCounter;
+int speed;
+
+//Variable to control the size of the explosion of the car
+float explosionSize;
+
 //Variable that counts the number of times that 'p' has been clicked so we know if the user wants to pause or resume
 float pauseCounter;
+
+//Variable for the ending line
+String ending="You Lose";
 
 //Variable used to change the size of the text on the "win" screen
 float endingTextSize;
@@ -59,8 +97,6 @@ float endingTextSize;
 //Variable used to adjust the delay of the screen
 int delay;
 
-//Variable to judge if the user uses the mouse or the arrow keys to control the car
-boolean mouseControl;
 
 void settings() {
   size(950, 700);
@@ -103,6 +139,17 @@ void setup() {
     mountainY = random(230, 260);
   }
 
+  //Sets the variables for the road
+  roadLineX = width/2;  
+  roadLineYChange = 8;  
+  roadLineY = height/2.15;
+  roadLineWidth = 2;
+  roadLineHeight = 5.99999;
+
+  //Sets the values for the race tracks at the side of the road
+  racingTrackY = 300;
+  racingTrackThickness = 2;
+  racingTrackYChange = 0;
 
   //Sets values of the first cloud
   cloudX = random(10, 140);
@@ -124,6 +171,43 @@ void setup() {
   lapNumber = 0;
   speed = 90;
 
+  //Sets the original x-value of the car
+  carDirection = 0;
+
+  //Randomly selects which obstacle shall appear
+  obstacleChoice = random(0, 3);
+
+  //Sets values for the first obstacle (the rock)
+  rockX = 0;
+  rockY = 0;
+  rockSize = 1;
+
+  //Sets values for the second obstacle (the cow)
+  cowX = -10;
+  cowY = 1;
+  cowSize = 0.9;
+
+  //Sets variable for the size of the explosion that will occur if the car crashes
+  explosionSize = 3;
+
+  //Presets the pause counter to 1
+  pauseCounter = 1;
+
+  //Sets the variables for the lap counter sign
+  signX = 580;
+  signY = height/2.15;
+  signWidth = 2;
+  signHeight = 5.99;
+  signTextSize = 0.5;
+
+  //Sets the boolean for the sun to shine to true
+  flashingSun = true;
+
+  //Sets the text size for the "win" screen
+  endingTextSize = 10;
+
+  //Sets the boolean for the flames to show to false
+  showFlames = false;
 }
 
 void draw() {
