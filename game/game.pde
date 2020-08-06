@@ -4,6 +4,19 @@
  Date of last edit: August 9, 2020
  */
 
+
+//Variables used to make the racing tracks on the side of the road
+float racingTrackY;
+float racingTrackThickness;
+float racingTrackYChange;
+
+//Variables used to make the grey road in the middle
+float roadLineYChange;
+float roadLineX;
+float roadLineY;
+float roadLineWidth;
+float roadLineHeight;
+
 //Variables used to make the mountains in the background
 float[] mountainElements = new float[72];
 float mountainY;
@@ -22,6 +35,20 @@ int currentScore;
 int lapNumber;
 int lapCounter;
 int speed;
+
+//Variables used to make the first cloud
+float cloudX;
+float cloudY;
+float cloudHorizontal;
+float cloudXChange;
+float cloudYChange;
+
+//Variables used to make the second cloud
+float cloud2X;
+float cloud2Y;
+float cloud2Horizontal;
+float cloud2XChange;
+float cloud2YChange;
 
 //Variable that counts the number of times that 'p' has been clicked so we know if the user wants to pause or resume
 float pauseCounter;
@@ -76,6 +103,20 @@ void setup() {
     mountainY = random(230, 260);
   }
 
+
+  //Sets values of the first cloud
+  cloudX = random(10, 140);
+  cloudY = random(50, 25);
+  cloudHorizontal = random(47, 50);
+  cloudXChange = random(0, 10);
+  cloudYChange = random(-1, 1);
+
+  //Sets values of the second cloud
+  cloud2X = random(410, 540);
+  cloud2Y = random(55, 25);
+  cloud2Horizontal = random(50, 57);
+  cloud2XChange = random(0, 10);
+  cloud2YChange = random(-1, 1);
 
   //Sets the default scores
   currentScore = 0;
@@ -137,5 +178,63 @@ void draw() {
 
   //Runs the game if the boolean startGame is true
   if (startGame) {
+    
+    //Creates the race tracks on the sides of the road
+    noStroke();
+    racingTrackY = 300;
+    racingTrackThickness = 2;
+    rectMode(RADIUS);
+    //Creates stripes accross the tract that are growing in size
+    for (int a = 1; a<25; a += 1) {
+      //Alternates between creating a red and white stripe
+      if (a%2==0) {    //If a is even, it creates a red stripe
+        fill(220, 60, 48);
+      } else {     //If a is odd, it creates a white stripe
+        fill(255);
+      }
+      //Draws the stripes
+      racingTrackY += racingTrackThickness;
+      racingTrackThickness *= 1.19;
+      rect(width/2, racingTrackY+racingTrackYChange, 325, racingTrackThickness);
+    }
+
+    //Shifts all of the stripes down to create a moving effect
+    racingTrackYChange+=8;
+
+    //Restarts the creation of the stripes if the stripes go over a certain value
+    if (racingTrackY+racingTrackYChange>height+305) {
+      racingTrackYChange = 2;
+    }
+
+
+    //Creates the green grass
+    fill(65, 160, 75);
+    quad(0, height, 0, height/2.15, 390, height/2.15, 150, height); //Makes grass on the left side of road
+    quad(800, height, 560, height/2.15, width, height/2.15, width, height);//Makes grass on the right side of road
+
+    //Creates the road itself
+    fill(153, 152, 158);
+    quad(195, height, 400, height/2.15, 550, height/2.15, 755, height); //Makes middle of road
+
+
+    //Creates the painted white road lines that come down the middle of the road
+    fill(247, 250, 255);
+    for (int i = -3; i<6; i += 1) {
+      rect(roadLineX, i*70+roadLineY, i*0.8+roadLineWidth, i*2+roadLineHeight);
+    }
+    //Shifts the lines down and makes them bigger to give the illusion of movement
+    roadLineY = height/2.15+roadLineYChange;
+    roadLineYChange += 8;
+    roadLineWidth += 0.1;
+    roadLineHeight += 0.285;
+
+    //Resets the road values to restart the animation of the white line if it crosses a certain point
+    if (3*70+roadLineY+roadLineHeight>=695.5814) {
+      roadLineYChange = 8;  
+      roadLineY = height/2.15+1;
+      roadLineWidth = 2.05;
+      roadLineHeight = 6.1;
+    }
+
   }
 }
