@@ -1,5 +1,6 @@
 PImage virusstill;
 PImage virus;
+PImage zombie;
 
 //Variables used to make the mountains in the background
 float[] mountainElements = new float[72];
@@ -102,7 +103,8 @@ void setup() {
   background(90, 205, 249);
   
   virus = loadImage("virusstill.png");
-  
+  zombie = loadImage("zombie.gif");
+
   //Outputs the game introduction for user into the console
   println("Welcome to the Game");
   println("Objective:");
@@ -173,7 +175,7 @@ void setup() {
   carDirection = 0;
 
   //Randomly selects which obstacle shall appear
-  obstacleChoice = random(0, 3);
+  obstacleChoice = random(0,3);
 
   //Sets values for the first obstacle (the rock)
   rockX = 0;
@@ -206,6 +208,8 @@ void setup() {
 
   //Sets the boolean for the flames to show to false
   showFlames = false;
+  
+
 }
 
 void draw() {
@@ -318,6 +322,8 @@ void draw() {
       roadLineY = height/2.15+1;
       roadLineWidth = 2.05;
       roadLineHeight = 6.1;
+      
+      
     }
 
 
@@ -378,23 +384,8 @@ void draw() {
       rectMode(RADIUS);
       stroke(0);
       strokeWeight(1);
-      fill(30);
-      rect(240+cowX, height/2.15+7+cowY, 1*cowSize*1.1, 4*cowSize*1.1, 10); //Cow left leg
-      rect(260+cowX, height/2.15+7+cowY, 1*cowSize*1.1, 4*cowSize*1.1, 10); //Cow right leg
-      rect(240+cowX, height/2.15+3+cowY, 9*cowSize, cowSize, 10); //Cow tail
-      fill(250);
-      rect(250+cowX, height/2.15+cowY, 12.5*cowSize*0.85, 6.5*cowSize*0.8, 10); //Cow Body
-      fill(10);
-      rect(250+cowX-cowSize, height/2.15-5+cowY, 1*cowSize, 1.5*cowSize, 6); //Cow left patch
-      rect(241+cowX-cowSize, height/2.15+3+cowY, 2*cowSize, 1*cowSize, 6); //Cow right patch
-      fill(255);
-      rect(260+cowX, height/2.15-4+cowY, 7*cowSize*0.9, 7*cowSize*0.85, 1, 1, 6, 6); //Cow head
-      fill(235, 152, 170);
-      rect(260+cowX, height/2.15+cowY+cowSize, 5*cowSize*1.05, 2.5*cowSize*1.05, 10, 10, 60, 60); //Cow mouth
-      stroke(10);
-      strokeWeight(4);
-      point(258.5+cowX, height/2.15-7.5+cowY); //Cow left eye
-      point(265.5+cowX, height/2.15-7.5+cowY); //Cow right eye
+
+  image(zombie, 228+cowX, (height/2.1+cowY)-33, 25*cowSize, 25*cowSize);
 
       //If the cow comes onto the road, make the cow start to move down vertically
       if (cowX<150) {
