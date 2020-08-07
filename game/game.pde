@@ -558,7 +558,7 @@ void draw() {
       textSize(signTextSize);
       fill(255);
       int currentLapNumber=lapNumber+1;
-      text("Round "+currentLapNumber, signX, signY);
+      text("Level "+currentLapNumber, signX, signY);
       signX += 5.5;
       signY += 5.5;
       signWidth += 2;
