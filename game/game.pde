@@ -1,3 +1,5 @@
+PImage virusstill;
+PImage virus;
 
 //Variables used to make the mountains in the background
 float[] mountainElements = new float[72];
@@ -98,7 +100,9 @@ void settings() {
 
 void setup() {   
   background(90, 205, 249);
-
+  
+  virus = loadImage("virusstill.png");
+  
   //Outputs the game introduction for user into the console
   println("Welcome to the Game");
   println("Objective:");
@@ -360,7 +364,9 @@ void draw() {
         rockSide = 450;
         rockX -= 1.2;
       }
-      ellipse(rockSide+rockX, height/2.15+rockY, 10*rockSize, 5*rockSize);
+      //ellipse(rockSide+rockX, height/2.15+rockY, 10*rockSize, 5*rockSize);
+      image(virus, rockSide+rockX,height/2.15+rockY, 10*rockSize, 10*rockSize);
+
       rockSize += 0.15;
       rockY += 10;
 
@@ -561,7 +567,7 @@ void draw() {
       textSize(signTextSize);
       fill(255);
       int currentLapNumber=lapNumber+1;
-      text("Lap "+currentLapNumber, signX, signY);
+      text("Round "+currentLapNumber, signX, signY);
       signX += 5.5;
       signY += 5.5;
       signWidth += 2;
