@@ -1,3 +1,5 @@
-# Outbreak Game!
+# Racing Game!
 
-Game developed for Melon Hacks 2020
+Game developed for Melon Jam 2020
+
+By: Mihir, Veer and Nand
