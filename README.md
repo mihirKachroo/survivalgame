@@ -1,5 +1,5 @@
-# Racing Game!
+# Get Out!
 
-Game developed for Melon Jam 2020
+An Apocolypse Car Game developed for Melon Jam 2020
 
 By: Mihir, Veer and Nand
