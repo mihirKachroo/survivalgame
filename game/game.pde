@@ -92,7 +92,7 @@ void setup() {
   println("Welcome to the GetOut");
   println("Objective:");
   println("  Do not hit an obstacle (the virus or zombie) or go off the road");
-  println("  Get to lap 10 to get out!");
+  println("  Get to level 10 to get out!");
   println("Instructions:");
   println("  Use Mouse or Arrow Keys");
   println("  Press Space Bar for a speed boost but beware that the boost leads to less control over the car");
