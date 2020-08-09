@@ -1,98 +1,79 @@
+PImage bg;
 PImage virusstill;
 PImage virus;
 PImage zombie;
 
-//Variables used to make the mountains in the background
 float[] mountainElements = new float[72];
 float mountainY;
 float mountainXStart;
 float mountainXEnd;
 float mountainX;
 
-//Variables used to make the racing tracks on the side of the road
 float racingTrackY;
 float racingTrackThickness;
 float racingTrackYChange;
 
-//Variables used to make the grey road in the middle
 float roadLineYChange;
 float roadLineX;
 float roadLineY;
 float roadLineWidth;
 float roadLineHeight;
 
-//Variable that changes where the X-axis of the car is
 float carDirection;
 
-//Variable to judge if the user uses the mouse or the arrow keys to control the car
 boolean mouseControl;
 
-//Variable to randomly choose which obstacle will appear
 float obstacleChoice;
 
-//Variables for the rock obstacles
 float rockY;
 float rockSize;
 float rockX;
 float rockSide;
 
-//Variables for the cow obstacle
 float cowY;
 float cowSize;
 float cowX;
 
-//Variables used to make the first cloud
 float cloudX;
 float cloudY;
 float cloudHorizontal;
 float cloudXChange;
 float cloudYChange;
 
-//Variables used to make the second cloud
 float cloud2X;
 float cloud2Y;
 float cloud2Horizontal;
 float cloud2XChange;
 float cloud2YChange;
 
-//Variables for the sign that appears to show the number of laps
 float signX;
 float signY;
 float signWidth;
 float signHeight;
 float signTextSize;
 
-//Variable to decide if the sun is on or off
 boolean flashingSun;
 
-//Variable to decide if the flames are visible or not
 boolean showFlames;
 
-//Variable to control the activation of the start, game and ending
 boolean startScreen;
 boolean startGame;
 boolean endGame;
 
-//Variables to inform the user of their scores
 int topScore;
 int currentScore;
 int lapNumber;
 int lapCounter;
 int speed;
 
-//Variable to control the size of the explosion of the car
 float explosionSize;
 
-//Variable that counts the number of times that 'p' has been clicked so we know if the user wants to pause or resume
 float pauseCounter;
 
-//Variable for the ending line
 String ending="You Lose";
 
-//Variable used to change the size of the text on the "win" screen
 float endingTextSize;
 
-//Variable used to adjust the delay of the screen
 int delay;
 
 void settings() {
@@ -100,16 +81,18 @@ void settings() {
 }
 
 void setup() {   
-  background(90, 205, 249);
-  
+    bg = loadImage("backdrop.png");
+
+  background(bg);
+
   virus = loadImage("virusstill.png");
   zombie = loadImage("zombie.gif");
 
   //Outputs the game introduction for user into the console
-  println("Welcome to the Game");
+  println("Welcome to the GetOut");
   println("Objective:");
-  println("  Do not hit an obstacle or go off the road");
-  println("  Get to lap 10 to win");
+  println("  Do not hit an obstacle (the virus or zombie) or go off the road");
+  println("  Get to lap 10 to get out!");
   println("Instructions:");
   println("  Use Mouse or Arrow Keys");
   println("  Press Space Bar for a speed boost but beware that the boost leads to less control over the car");
@@ -527,19 +510,15 @@ void draw() {
       cloud2YChange = random(-2, 2);
     }
 
-    //Triggers the end if the car goes off the road
     if (carDirection>465 || carDirection<-245) {
       endGame = true;
     }
 
-    //Halts the code for a spefic amount of time so that it can create the ilusion of movement
     delay(delay);
 
-    //Increses the current score of the user and lap counter by 10
     currentScore += 10;
     lapCounter += 10;
 
-    //Sets the current score as the users top score if it is their highest
     if (currentScore>topScore) {
       topScore = currentScore;
     }
@@ -565,7 +544,6 @@ void draw() {
       signHeight += 1;
       signTextSize += 0.53;
 
-      //If the sign goes off the screen, increases the lapNumber by 1 and reset the lapCounter so it can be used again
       if (signY>height+20) {
         signX = 580;
         signY = height/2.15;
@@ -609,7 +587,7 @@ void draw() {
 
     //Shows the user their lap number
     fill(10, 249, 229);
-    text("LAP "+lapNumber, 800, 54);
+    text("Level "+lapNumber, 800, 54);
 
     //Shows the user their speed
     fill(255);
@@ -640,11 +618,10 @@ void draw() {
     if (endingTextSize>=140) {
       endingTextSize = 140;
     }
-    text("You Win!", width/2, height/1.8);
+    text("You Survived!", width/2, height/1.8);
   }
 
 
-  //If the ending is triggered, create an explosion
   if (endGame) {
     startGame = false;
     stroke(100, 10, 10);
@@ -653,7 +630,6 @@ void draw() {
     explosionSize *= 1.1;
     ellipse(width/2, height/2, explosionSize, explosionSize);
 
-    //When the explosion reaches the width, print the ending and reset the program
     if (explosionSize>=1100) {
       println(ending);
       setup();
@@ -690,7 +666,6 @@ public void keyPressed() {
 }
 
 public void mousePressed() {
-  //Uses mouse X and Y values to check if it is within the radius of the sun
   if (mousePressed && dist(width/2, height/2.15, mouseX, mouseY) < 130) {
     flashingSun = !flashingSun; //Flips the boolean
   }
